@@ -38,7 +38,7 @@
 ;;
 ;; Hint: let, map, next, table-keys, data-record
 (defn data-table [tbl]
-  (let [table-keys (first tbl)
+  (let [table-keys (map keyword (first tbl))
         records (rest tbl)]
   (map #(data-record table-keys %) records)))
 
@@ -66,7 +66,7 @@
 ;;
 ;; Hint: if-not, filter
 (defn where* [data condition-func]
-  :ImplementMe!)
+  (filter condition-func data))
 
 ;; (limit* student 1)
 ;; => ({:surname "Ivanov", :year 1998, :id 1})

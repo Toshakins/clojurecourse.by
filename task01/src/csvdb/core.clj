@@ -14,7 +14,7 @@
 ;;
 ;; Hint: vec, map, keyword, first
 (defn table-keys [tbl]
-  (first tbl))
+  (map keyword (first tbl)))
 (table-keys student-tbl)
 
 ;; (key-value-pairs [:id :surname :year :group_id] ["1" "Ivanov" "1996"])
@@ -66,20 +66,26 @@
 ;;
 ;; Hint: if-not, filter
 (defn where* [data condition-func]
-  (filter condition-func data))
+  (if-not (nil? condition-func)
+    (filter condition-func data)
+    data))
 
 ;; (limit* student 1)
 ;; => ({:surname "Ivanov", :year 1998, :id 1})
 ;;
 ;; Hint: if-not, take
 (defn limit* [data lim]
-  (take lim data))
+  (if-not (nil? lim)
+    (take lim data)
+    data))
 
 ;; (order-by* student :year)
 ;; => ({:surname "Sidorov", :year 1996, :id 3} {:surname "Petrov", :year 1997, :id 2} {:surname "Ivanov", :year 1998, :id 1})
 ;; Hint: if-not, sort-by
 (defn order-by* [data column]
-  (sort-by column data))
+    (if-not (nil? column)
+      (sort-by column data)
+      data))
 
 ;; (join* (join* student-subject :student_id student :id) :subject_id subject :id)
 ;; => [{:subject "Math", :subject_id 1, :surname "Ivanov", :year 1998, :student_id 1, :id 1}
@@ -104,7 +110,7 @@
             (column2 element2))))
       (map
         (fn [element2]
-          (merge element1 element2))))))
+          (merge element2 element1))))))
     nil data1))
 
 
